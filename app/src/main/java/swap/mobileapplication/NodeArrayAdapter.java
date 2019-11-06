@@ -27,7 +27,7 @@ public class NodeArrayAdapter extends ArrayAdapter<Node> implements Manager.Mana
     public void onDiscoveryChange(Manager m, boolean enabled) {
     }
 
-    // dodanie nowowykrytego węzła do adaptera
+    // dodanie wykrytego węzła do adaptera
     @Override
     public void onNodeDiscovered(Manager m, final Node node) {
         mActivity.runOnUiThread(new Runnable() {

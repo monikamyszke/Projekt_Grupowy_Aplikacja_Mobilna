@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="swap.mobileapplication.StatisticsActivity">
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="388dp"
+        android:layout_height="174dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="310dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2">
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/player_number"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/pass_number"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/shot_number"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/slide_number"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/running_time"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/jogging_time"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/march_time"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>

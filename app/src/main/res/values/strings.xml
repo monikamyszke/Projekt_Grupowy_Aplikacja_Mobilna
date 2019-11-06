@@ -1,3 +1,31 @@
-<resources>
-    <string name="app_name">mobileApplication</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">SWAP</string>
+
+    <string name="menu_connect">POŁĄCZ</string>
+    <string name="menu_statistics">STATYSTYKI</string>
+    <string name="menu_help">POMOC</string>
+    <string name="menu_exit">WYJŚCIE</string>
+    
+    <string name="player_number">NR ZAWODNIKA</string>
+    <string name="pass_number">LICZBA PODAŃ</string>
+    <string name="shot_number">LICZBA STRZAŁÓW</string>
+    <string name="slide_number">LICZBA WŚLIZGÓW</string>
+    <string name="running_time">CZAS BIEGU [MIN]</string>
+    <string name="jogging_time">CZAS TRUCHTU [MIN]</string>
+    <string name="march_time">CZAS MARSZU [MIN]</string>
+
+    <string name="zero">0</string>
+
+    <string name="help_text"><b>SWAP - System Wykrywania Aktywności Piłkarza</b> umożliwia zbieranie danych pochodzących z czujników inercyjnych
+        i ich klasyfikację za pomocą sztucznej sieci neuronowej. Dane z czujników umieszczonych w opasce zamocowanej na nodze piłkarza są
+        przesyłane do aplikacji mobilnej, która przekazuje je do serwera. Na serwerze ma miejsce ich klasyfikacja (wykrycie aktywności
+        zawodnika) oraz zapis wyników klasyfikacji do bazy danych. Aplikacja umożliwia ponadto pobranie z bazy danych
+        informacji na temat konkretnego zawodnika.\n\nPrzycisk <b>POŁĄCZ</b> inicjuje nawiązanie połączenia z urządzeniem znajdującym się
+        na nodze zawodnika oraz pobór danych z czujników (akcelerometru i żyroskopu), a także cykliczne przekazywanie ich do serwera. Dane
+        między czujnikami a aplikacją są przesyłane z wykorzystaniem Bluetootha Low Energy, natomiast między aplikacją
+        a serwerem - przy użyciu protokołu sieciowego TCP.\n\n<b>STATYSTYKI</b>
+        umożliwiają użytkownikowi pobranie z bazy danych informacji (liczba strzałów, czas biegu, itp.) na temat konkretnego zawodnika.
+        Informacje uzyskuje się podając numer zawodnika oraz przedział czasowy, z którego mają pochodzić dane.\n\nPrzycisk
+        <b>WYJŚCIE</b> powoduje zakończenie działania aplikacji.
+    </string>
 </resources>

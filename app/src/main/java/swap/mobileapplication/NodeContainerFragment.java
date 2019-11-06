@@ -17,7 +17,7 @@ public class NodeContainerFragment extends Fragment {
 
     private boolean userAskToKeepConnection = false;
 
-    // okienko wyświetlane podczas czekania na połączenie z węzłem
+    // okienko (dialog) wyświetlane podczas czekania na połączenie z węzłem
     private ProgressDialog mConnectionWait;
     private Node mNode = null;
 
@@ -119,7 +119,7 @@ public class NodeContainerFragment extends Fragment {
     @Override
     public void onDestroy(){
 
-        if(mNode!=null && mNode.isConnected()){
+        if(mNode != null && mNode.isConnected()){
             if(!userAskToKeepConnection) {
                 mNode.removeNodeStateListener(mNodeStateListener);
                 mNode.disconnect();

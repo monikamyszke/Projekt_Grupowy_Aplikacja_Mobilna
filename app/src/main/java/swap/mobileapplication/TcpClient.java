@@ -13,11 +13,11 @@ import java.net.Socket;
 class TcpClient {
 
     // adres IP i numer portu serwera
-    private static final String SERVER_IP = "185.18.143.225";
+    private static final String SERVER_IP = "192.168.8.102";
     private static final int SERVER_PORT = 5005;
 
     // wiadomość wysyłana przez serwer do klienta
-    private String serverMessage;
+    public String serverMessage;
 
     // obiekt nasłuchujący wiadomości od serwera
     private OnMessageReceived messageListener = null;
@@ -88,7 +88,7 @@ class TcpClient {
 
     }
 
-    // metoda messageReceived(String message) musi być zaimplementowana w AccelerationActivity, w doInBackground
+    // metoda messageReceived(String message) musi być zaimplementowana w SensorDataActivity, w doInBackground
     public interface OnMessageReceived {
         void messageReceived(String message);
     }

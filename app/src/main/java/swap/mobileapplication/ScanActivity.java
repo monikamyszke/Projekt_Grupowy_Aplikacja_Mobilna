@@ -68,6 +68,8 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
 
     protected void onResume() {
         super.onResume();
+        Log.e("4", "onResume");
+
         mManager.addListener(mUpdateDiscoverGui);
 
         // rozłączenie wszystkich wykrytych węzłów
@@ -85,7 +87,7 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
     protected void onStop() {
         if (mManager.isDiscovering())
             mManager.stopDiscovery();
-        Log.e("4", "onStop");
+        Log.e("5", "onStop");
         mManager.removeListener(mUpdateDiscoverGui);
         mManager.removeListener(mAdapter);
         super.onStop();
@@ -119,7 +121,7 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
             return;
 
         // przejście do aktywności wyświetlającej dane z czujników
-        Intent i = AccelerationActivity.getStartIntent(this, n);
+        Intent i = SensorDataActivity.getStartIntent(this, n);
         startActivity(i);
     }
 
