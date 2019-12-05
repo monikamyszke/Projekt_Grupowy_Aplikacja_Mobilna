@@ -13,7 +13,8 @@ import java.net.Socket;
 class TcpClient {
 
     // adres IP i numer portu serwera
-    private static final String SERVER_IP = "192.168.8.102";
+    //private static final String SERVER_IP = "83.20.119.105";
+    private static final String SERVER_IP = "swapdomain.ddns.net";
     private static final int SERVER_PORT = 5005;
 
     // wiadomość wysyłana przez serwer do klienta
@@ -58,7 +59,7 @@ class TcpClient {
 
             // utworzenie gniazda w celu nawiązania połączenia z serwerem
             Socket socket = new Socket(serverAddr, SERVER_PORT);
-            Log.d("TCP Client", "Connecting...");
+            Log.e("TCP Client", "Connecting...");
 
             try {
 
