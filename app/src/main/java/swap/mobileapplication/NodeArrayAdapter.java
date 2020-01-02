@@ -14,7 +14,7 @@ import com.st.BlueSTSDK.Node;
 
 public class NodeArrayAdapter extends ArrayAdapter<Node> implements Manager.ManagerListener {
 
-    // aktywność do której przywiązany jest adapter (ScanActivity)
+    // aktywnosc do ktorej przywiazany jest adapter (ScanActivity)
     private Activity mActivity;
 
     NodeArrayAdapter(Activity context) {
@@ -27,7 +27,7 @@ public class NodeArrayAdapter extends ArrayAdapter<Node> implements Manager.Mana
     public void onDiscoveryChange(Manager m, boolean enabled) {
     }
 
-    // dodanie wykrytego węzła do adaptera
+    // dodanie wykrytego wezla do adaptera
     @Override
     public void onNodeDiscovered(Manager m, final Node node) {
         mActivity.runOnUiThread(new Runnable() {
@@ -38,7 +38,7 @@ public class NodeArrayAdapter extends ArrayAdapter<Node> implements Manager.Mana
         });
     }
 
-    // rozłączenie węzłów związanych z adapterem
+    // rozlaczenie wezlow zwiazanych z adapterem
     void disconnectAllNodes() {
         for (int i = 0; i < getCount(); i++) {
             Node n = getItem(i);
@@ -47,7 +47,7 @@ public class NodeArrayAdapter extends ArrayAdapter<Node> implements Manager.Mana
         }
     }
 
-    // utworzenie view opisującego pojedynczy węzeł
+    // utworzenie view opisujacego pojedynczy wezeł
     @NonNull
     @Override
     public View getView(int position, View v, @NonNull ViewGroup parent) {

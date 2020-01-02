@@ -9,6 +9,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+// ekran startowy aplikacji
 public class SplashScreen extends AppCompatActivity {
 
     @Override

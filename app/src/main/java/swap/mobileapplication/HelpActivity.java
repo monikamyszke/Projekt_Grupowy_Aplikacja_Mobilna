@@ -5,17 +5,18 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
+// pomoc dla uzytkownika
 public class HelpActivity extends AppCompatActivity {
 
-    TextView helpTextViev;
+    TextView helpTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-        helpTextViev = findViewById(R.id.help_textview);
-        helpTextViev.setMovementMethod(new ScrollingMovementMethod());
+        helpTextView = findViewById(R.id.help_textview);
+        helpTextView.setMovementMethod(new ScrollingMovementMethod());
 
     }
 }

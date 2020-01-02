@@ -11,18 +11,20 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
+// klasa implementujaca kienta TCP
 class TcpClient {
 
-    // adres IP i numer portu serwera
-//    private static final String SERVER_IP = "192.168.0.120";
+    // adres IP serwera
     private static final String SERVER_IP = "swapdomain.ddns.net";
+
+    // numer portu serwera
     private static final int SERVER_PORT = 5005;
 
-    // wiadomość wysyłana przez serwer do klienta
-    public String serverMessage;
+    // wiadomosc wysylana przez serwer do klienta
+    private String serverMessage;
 
-    // obiekt nasłuchujący wiadomości od serwera
-    private OnMessageReceived messageListener = null;
+    // obiekt nasluchujacy wiadomosci od serwera
+    private OnMessageReceived messageListener;
 
     // true, gdy serwer jest uruchomiony
     private volatile boolean serverRunning = false;
@@ -36,7 +38,7 @@ class TcpClient {
         messageListener = listener;
     }
 
-    // funkcja wysyłająca wiadomość klienta do serwera
+    // funkcja wysylajaca wiadomosc klienta do serwera
     void sendMessage(final String message) {
         Runnable runnable = new Runnable() {
             @Override
@@ -54,30 +56,29 @@ class TcpClient {
     }
 
 
-    // zwróć true, jeśli sukces, w przeciwnym wypadku false
+    // funkcja zwracajaca true, gdy udalo sie nawiazac polaczenie z serwerem
     Boolean preRun () {
         serverRunning = true;
-        Log.e("TCP Client", "Connecting1...");
+        Log.e("TCP Client", "Try to connect...");
         try {
             // pobranie adresu IP serwera
             InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 
-            // utworzenie gniazda w celu nawiązania połączenia z serwerem
+            // utworzenie gniazda w celu nawiazania polaczenia z serwerem
             socket = new Socket(serverAddr, SERVER_PORT);
             Log.e("TCP Client", "Connecting...");
 
             bufferOut = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
             bufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             return true;
+
         }  catch (Exception e) {
             Log.e("TCP Client", "Error", e);
             return false;
         }
     }
 
-
     void run() {
-        Log.e("TCP Client", "JESTEM!!...");
         try {
             serverMessage = bufferIn.readLine();
         } catch (IOException e) {
@@ -85,12 +86,13 @@ class TcpClient {
         }
 
         if (serverMessage != null && messageListener != null) {
-            // otrzymano wiadomość od serwera
+            // otrzymano wiadomosc od serwera
             messageListener.messageReceived(serverMessage);
         }
     }
-    void postRun () {
 
+    // zamkniecie polaczenia
+    void postRun () {
         serverRunning = false;
         try {
             socket.close();
@@ -100,7 +102,7 @@ class TcpClient {
         stopClient();
     }
 
-    // funkcja do zamykania połączenia
+    // funkcja konczaca polaczenie
     public void stopClient() {
         serverRunning = false;
 
@@ -115,7 +117,7 @@ class TcpClient {
         serverMessage = null;
     }
 
-    // metoda messageReceived(String message) musi być zaimplementowana w SensorDataActivity, w doInBackground
+    // metoda messageReceived(String message) musi byc zaimplementowana w StatisticsActivity, w doInBackground
     public interface OnMessageReceived {
         void messageReceived(String message);
     }

@@ -11,16 +11,16 @@ import android.content.Intent;
 
 import com.st.BlueSTSDK.Utils.NodeScanActivity;
 
-// aktywność pokazującą listę urządzeń wspieranych przez BlueSTSDK
+// aktywnosc pokazujaca liste urzadzen wspieranych przez BlueSTSDK
 public class ScanActivity extends NodeScanActivity implements AbsListView.OnItemClickListener {
 
     // czas skanowania w poszukiwaniu nowego węzła (10 s)
     private final static int SCAN_TIME_MS = 10 * 1000;
 
-    // adapter budujący GUI dla każdego wykrytego węzła - przechowuje wykryte węzły
+    // adapter budujacy GUI dla kazdego wykrytego wezła - przechowuje wykryte wezly
     private NodeArrayAdapter mAdapter;
 
-    // listener nasłuchujący wykrycia węzła
+    // listener nasluchujacy wykrycia wezla
     private Manager.ManagerListener mUpdateDiscoverGui = new Manager.ManagerListener() {
         // zatrzymanie skanowania w celu uaktualnienia informacji w GUI
         @Override
@@ -35,7 +35,7 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
                 });
         }
 
-        // metoda wywoływana w momencie wykrycia nowego węzła
+        // metoda wywolywana w momencie wykrycia nowego wezla
         @Override
         public void onNodeDiscovered(Manager m, Node node) {
             Log.e("2", "onNodeDiscovered");
@@ -49,14 +49,14 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
 
         AbsListView listView = findViewById(R.id.nodeListView);
 
-        // utworzenie adaptera i powiązanie go z listą, w której będzie użyty do reprezentacji danych
+        // utworzenie adaptera i powiazanie go z lista, w ktorej bedzie uzyty do reprezentacji danych
         mAdapter = new NodeArrayAdapter(this);
         listView.setAdapter(mAdapter);
 
-        // rejestracja wybrania węzła z listy
+        // rejestracja wybrania wezla z listy
         listView.setOnItemClickListener(this);
 
-        // dodanie wszystkich wykrytych węzłów do adaptera
+        // dodanie wszystkich wykrytych wezlow do adaptera
         mAdapter.addAll(mManager.getNodes());
     }
 
@@ -72,17 +72,17 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
 
         mManager.addListener(mUpdateDiscoverGui);
 
-        // rozłączenie wszystkich wykrytych węzłów
+        // rozlaczenie wszystkich wykrytych wezlow
         mAdapter.disconnectAllNodes();
 
-        // dodanie listenera dla nowych węzłów
+        // dodanie listenera dla nowych wezlow
         mManager.addListener(mAdapter);
 
         resetNodeList();
         startNodeDiscovery();
     }
 
-    // zatrzymanie skanowania i usunięcie listenerów związanych z maganerem
+    // zatrzymanie skanowania i usuniecie listenerow zwiazanych z maganerem
     @Override
     protected void onStop() {
         if (mManager.isDiscovering())
@@ -93,34 +93,34 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
         super.onStop();
     }
 
-    // wyczyszczenie listy węzłów powiązanych z managerem i adapterem
+    // wyczyszczenie listy wezlow powiazanych z managerem i adapterem
     private void resetNodeList() {
         mManager.resetDiscovery();
         mAdapter.clear();
-        // urządzenia sparowane będą nadal widoczne
+        // urzadzenia sparowane beda nadal widoczne
         mAdapter.addAll(mManager.getNodes());
     }
 
-    // rozpoczęcie skanowania + zapytanie o aktualizację GUI
+    // rozpoczecie skanowania + zapytanie o aktualizacje GUI
     public void startNodeDiscovery() {
         super.startNodeDiscovery(SCAN_TIME_MS);
         invalidateOptionsMenu();
     }
 
-    // zatrzymanie skanowania + zapytanie o aktualizację GUI
+    // zatrzymanie skanowania + zapytanie o aktualizacje GUI
     public void stopNodeDiscovery() {
         super.stopNodeDiscovery();
         invalidateOptionsMenu();
     }
 
-    // wybór węzła -> rozpoczęcie połączenia
+    // wybor węzła -> inicjacja polaczenia
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Node n = mAdapter.getItem(position);
         if(n == null)
             return;
 
-        // przejście do aktywności wyświetlającej dane z czujników
+        // przejscie do aktywnosci wizualizujacej sklasyfikowane dane
         Intent i = StatisticsActivity.getStartIntent(this, n);
         startActivity(i);
     }

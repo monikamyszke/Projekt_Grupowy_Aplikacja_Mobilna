@@ -6,11 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+// menu glowne aplikacji
 public class MenuActivity extends AppCompatActivity {
 
+    // przycisk polaczenia
     Button connectButton;
-//    Button statButton;
+
+    // przycisk pomocy dla uzytkownika
     Button helpButton;
+
+    // przycisk wyjscia z aplikacji
     Button exitButton;
 
     @Override
@@ -19,7 +24,6 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         connectButton = findViewById(R.id.connect_button);
-    //    statButton = findViewById(R.id.statistics_button);
         helpButton = findViewById(R.id.help_button);
         exitButton = findViewById( R.id.exit_button);
 
@@ -29,13 +33,6 @@ public class MenuActivity extends AppCompatActivity {
                 startScanActivity();
             }
         });
-
-//        statButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startStatisticsActivity();
-//            }
-//        });
 
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,17 +50,13 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    // funkcja przechodząca do skanowania po wciśnięciu przycisku
+    // funkcja przechodzaca do wyszukiwania urzadzen
     public void startScanActivity() {
         startActivity(new Intent(this, ScanActivity.class));
     }
 
-    // funkcja przechodząca do statystyk
-//    public void startStatisticsActivity() {
-//        startActivity(new Intent(this, StatisticsActivity.class));
-//    }
 
-    // funkcja przechodząca do pomocy dla użytkownika
+    // funkcja przechodząaa do pomocy dla uzytkownika
     public void startHelpActivity() {
         startActivity(new Intent(this, HelpActivity.class));
     }

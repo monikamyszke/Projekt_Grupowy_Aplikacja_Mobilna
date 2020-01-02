@@ -18,58 +18,60 @@ import com.st.BlueSTSDK.Manager;
 import com.st.BlueSTSDK.Node;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class StatisticsActivity extends AppCompatActivity {
 
+    // klient TCP
     private TcpClient tcpClient;
 
-    private volatile AtomicBoolean a;
-    private volatile AtomicBoolean g;
-    private volatile AtomicBoolean t;
-
-    private volatile AtomicBoolean inProgress;
-
+    // wykorzystywane charakterystyki
     private FeatureAcceleration mAccelerator;
     private FeatureGyroscope mGyroscope;
-    Semaphore sem;
+
+    // licznik wyslanych pakietow
     volatile int packCounter;
 
-    // węzeł transmitujący dane
+    // wezel transmitujacy dane
     private Node mNode;
 
+    // listy do przechowywania probek wykorzystywanych do uformowania pakietu
     ArrayList<String> timestampArray;
     ArrayList<String> accDataPacket;
     ArrayList<String> gyroDataPacket;
 
-    Integer trucht_czas;
-    Integer stanie_czas;
-    Integer marsz_czas;
-    Integer bieg_czas;
-    Integer skakanie_czas;
+    // zmienne pomocnicze przy zliczaniu probek danych
+    private volatile AtomicBoolean a;
+    private volatile AtomicBoolean g;
+    private volatile AtomicBoolean t;
+    private volatile AtomicBoolean inProgress;
 
+    // liczniki aktywnosci
+    int jogging_time;
+    int staying_time;
+    int march_time;
+    int running_time;
+    int hop_number;
+
+    // zmienne wykorzystywane przy uaktualnianiu wynikow klasyfikacji
     int id_to_update;
     int new_value;
 
     ConnectingTask connectingTask;
+    Semaphore sem;
 
-
-    // fragment zarządzający połączeniem z węzłem
-    // pozwala uniknąć ponownego połączenia za każdym razem gdy aktywność jest wznawiana
+    // fragment zarzadzajacy polaczeniem z wezlem
+    // pozwala uniknac ponownego polaczenia za kazdym razem gdy aktywnosc jest wznawiana
     private NodeContainerFragment mNodeContainer;
 
-    // tag używany w celu otrzymania NodeContainerFragment
+    // tag uzywany w celu otrzymania NodeContainerFragment
     private final static String NODE_FRAGMENT = StatisticsActivity.class.getCanonicalName() + "" +
             ".NODE_FRAGMENT";
 
-    // tag używany do przechowywania id węzła
+    // tag uzywany do przechowywania id wezla
     private final static String NODE_TAG = StatisticsActivity.class.getCanonicalName() + "" +
             ".NODE_TAG";
-
-
 
     /**
      * Disconnects using a background task to avoid doing long/network operations on the UI thread
@@ -79,19 +81,15 @@ public class StatisticsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            // disconnect
             tcpClient.stopClient();
             tcpClient = null;
-
             return null;
         }
     }
 
-
-
     public class ConnectingTask extends AsyncTask<String, String, TcpClient> {
 
-        // metoda uruchamiana w oddzielnym wątku
+        // metoda uruchamiana w oddzielnym watku
         @Override
         protected TcpClient doInBackground(String... message) {
 
@@ -99,39 +97,32 @@ public class StatisticsActivity extends AppCompatActivity {
             tcpClient = new TcpClient(new TcpClient.OnMessageReceived() {
                 @Override
                 public void messageReceived(final String message) {
-                    // wywołanie metody onProgressUpdate
-//                    publishProgress(message);
-//                    Log.e("DUPA1", message);
                     new_value = 0;
                     id_to_update = 0;
                     Log.e("Client", message);
 
+                    // inkrementacja danych w tabeli na podstawie odpowiedzi serwera
                     if (message.equals("Bieg")) {
-                        bieg_czas++;
-                        new_value = bieg_czas;
-                        id_to_update = R.id.bieg;
+                        running_time++;
+                        new_value = running_time;
+                        id_to_update = R.id.running_time;
                     } else if (message.equals("Trucht")) {
-                        trucht_czas++;
-                        new_value = trucht_czas;
-                        id_to_update = R.id.trucht;
+                        jogging_time++;
+                        new_value = jogging_time;
+                        id_to_update = R.id.jogging_time;
                     } else if (message.equals("Stanie")) {
-                        stanie_czas++;
-                        new_value = stanie_czas;
-                        id_to_update = R.id.stanie;
+                        staying_time++;
+                        new_value = staying_time;
+                        id_to_update = R.id.staying_time;
                     } else if (message.equals("Marsz")) {
-                        marsz_czas++;
-                        new_value = marsz_czas;
-                        id_to_update = R.id.marsz;
+                        march_time++;
+                        new_value = march_time;
+                        id_to_update = R.id.march_time;
                     } else if (message.equals("Skok")) {
-                        skakanie_czas++;
-                        new_value = skakanie_czas;
-                        id_to_update = R.id.skakanie;
+                        hop_number++;
+                        new_value = hop_number;
+                        id_to_update = R.id.hop_number;
                     }
-
-                    if (message.equals("END")){
-                        System.out.println("xxxxxxxxxxxxxxxxxxx");
-                    }
-
 
                     StatisticsActivity.this.runOnUiThread(new Runnable() {
                         @Override
@@ -142,18 +133,15 @@ public class StatisticsActivity extends AppCompatActivity {
                                 textview.setText(String.valueOf(new_value));
                                 textview = findViewById(R.id.server_response);
                                 textview.setText("Wykryta aktywność: " + message);
-
                             }
-
-
                         }
                     });
 
-
                 }
             });
-            Log.e("Client", "connecting task");
+            Log.e("Client", "Connecting task");
 
+            // proba ponownego polaczenia z serwerem
             Boolean is_configured;
             int attempt = 3;
 
@@ -165,9 +153,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            } while (is_configured == false && attempt > 0);
+            } while (!is_configured && attempt > 0);
             if (is_configured) {
-                while (this.isCancelled() == false) {
+                while (!this.isCancelled()) {
                     tcpClient.run();
                 }
                 tcpClient.postRun();
@@ -179,7 +167,7 @@ public class StatisticsActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            // odpowiedź otrzymana od serwera
+            // odpowiedz otrzymana od serwera
             Log.d("TCP Server",  values[0]);
         }
     }
@@ -210,7 +198,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private final Feature.FeatureListener mGyroscopeListener = new Feature.FeatureListener() {
         @Override
-        // aktualizacja danych z żyroskopu
+        // aktualizacja danych z zyroskopu
         public void onUpdate(Feature f,Feature.Sample sample) {
 
         float x = FeatureGyroscope.getGyroX(sample);
@@ -219,7 +207,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
             synchronized (this) {
                 gyroDataPacket.add(" " + x + " " + y + " " + z + "\n");
-
                 if (gyroDataPacket.size() == 100 && !inProgress.get()) {
                     g.set(true);
                 }
@@ -227,7 +214,7 @@ public class StatisticsActivity extends AppCompatActivity {
         }
     };
 
-    // utworzenie intentu odpowiadającego za uruchomienie aktywności
+    // utworzenie intentu odpowiadajacego za uruchomienie aktywnosci
     public static Intent getStartIntent(Context c, @NonNull Node node) {
         Intent i = new Intent(c, StatisticsActivity.class);
         i.putExtra(NODE_TAG, node.getTag());
@@ -240,60 +227,56 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-        sem = new Semaphore(1);
+        final TextView TextView  = findViewById(R.id.tcp_counter);
+        final Button disconnectButton = findViewById(R.id.disconnect_button);
+        final Button resetButton = findViewById(R.id.reset_button);
 
         a = new AtomicBoolean(false);
         g = new AtomicBoolean(false);
         t = new AtomicBoolean(false);
 
-        trucht_czas = new Integer(0);
-        stanie_czas = new Integer(0);
-        marsz_czas = new Integer(0);
-        bieg_czas = new Integer(0);
-        skakanie_czas = new Integer(0);
+        jogging_time = 0;
+        staying_time = 0;
+        march_time = 0;
+        running_time = 0;
+        hop_number = 0;
 
         inProgress = new AtomicBoolean(false);
-
+        sem = new Semaphore(1);
         packCounter = 0;
-        final TextView TextView  = findViewById(R.id.tcp_counter);
+
         TextView.setText(String.valueOf(packCounter));
 
-//        a = false;
-//        g = false;
-//        t = false;
-//        inProgress = false;
-
-        final Button button = findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener() {
+        // rozlaczanie z serwerem po wcisnieciu przycisku
+        disconnectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 closeConnection ();
                 connectingTask.cancel(true);
             }
         });
 
-        final Button button2 = findViewById(R.id.reset_button);
-        button2.setOnClickListener(new View.OnClickListener() {
+        // resetowanie zawartosci tabeli
+        resetButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                trucht_czas = 0;
-                TextView textView = findViewById(R.id.trucht);
-                textView.setText(String.valueOf(trucht_czas));
+                jogging_time = 0;
+                TextView textView = findViewById(R.id.jogging_time);
+                textView.setText(String.valueOf(jogging_time));
 
-                stanie_czas = 0;
-                textView = findViewById(R.id.stanie);
-                textView.setText(String.valueOf(stanie_czas));
+                staying_time = 0;
+                textView = findViewById(R.id.staying_time);
+                textView.setText(String.valueOf(staying_time));
 
+                march_time = 0;
+                textView = findViewById(R.id.march_time);
+                textView.setText(String.valueOf(march_time));
 
-                marsz_czas = 0;
-                textView = findViewById(R.id.marsz);
-                textView.setText(String.valueOf(marsz_czas));
+                running_time = 0;
+                textView = findViewById(R.id.running_time);
+                textView.setText(String.valueOf(running_time));
 
-                bieg_czas = 0;
-                textView = findViewById(R.id.bieg);
-                textView.setText(String.valueOf(bieg_czas));
-
-                skakanie_czas = 0;
-                textView = findViewById(R.id.skakanie);
-                textView.setText(String.valueOf(skakanie_czas));
+                hop_number = 0;
+                textView = findViewById(R.id.hop_number);
+                textView.setText(String.valueOf(hop_number));
 
                 packCounter = 0;
                 textView = findViewById(R.id.tcp_counter);
@@ -305,10 +288,7 @@ public class StatisticsActivity extends AppCompatActivity {
         });
 
 
-
-
-
-        // "odszukanie" właściwego węzła
+        // "odszukanie" wlasciwego wezla
         String nodeTag = getIntent().getStringExtra(NODE_TAG);
         mNode = Manager.getSharedInstance().getNodeWithTag(nodeTag);
 
@@ -326,19 +306,18 @@ public class StatisticsActivity extends AppCompatActivity {
                     .findFragmentByTag(NODE_FRAGMENT);
         }
 
+        // utworzenie list przechowujacych probki z czujnikow
         timestampArray = new ArrayList<>();
         accDataPacket = new ArrayList<>();
         gyroDataPacket = new ArrayList<>();
 
-        // połączenie z serwerem
-//        new ConnectingTask().execute("");
-
+        // watek zwiazany z wysylaniem danych do serwera
         Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
                     while(true) {
-//                        System.out.println("RK2: g =" + g.get() + " t=" + t.get() + " !inprogress=" + !inProgress.get());
+                        // sprawdzanie liczby zebranych probek
                         if (g.get() && a.get() && t.get() && !inProgress.get()) {
                             packCounter ++;
                             inProgress.set(true);
@@ -346,6 +325,8 @@ public class StatisticsActivity extends AppCompatActivity {
                             g.set(false);
                             t.set(false);
                             Log.e("Client", "sendToServer");
+
+                            // uaktualnianie liczby wyslanych pakietow w GUI
                             StatisticsActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -355,6 +336,8 @@ public class StatisticsActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+
+                            // wyslanie pakietu do serwera
                             sendToServer();
                             inProgress.set(false);
                         }
@@ -369,6 +352,7 @@ public class StatisticsActivity extends AppCompatActivity {
         thread.start();
     }
 
+    // funkcja wlaczajaca notyfikacje (dane z akcelerometru)
     private void enableAccelerometerNotification() {
         mAccelerator = mNode.getFeature(FeatureAcceleration.class);
         mAccelerator.addFeatureListener(mAccelerationListener);
@@ -376,13 +360,14 @@ public class StatisticsActivity extends AppCompatActivity {
 
     }
 
+    // funkcja wlaczajaca notyfikacje (dane z zyroskopu)
     private void enableGyroscopeNotification() {
         mGyroscope = mNode.getFeature(FeatureGyroscope.class);
         mGyroscope.addFeatureListener(mGyroscopeListener);
         mNode.enableNotification(mGyroscope);
     }
 
-    // listener odpowiedzialny za włączenie notyfikacji od węzła
+    // listener odpowiedzialny za wlaczenie notyfikacji od wezla
     private Node.NodeStateListener mNodeStatusListener = new Node.NodeStateListener() {
         @Override
         public void onStateChange(final Node node, Node.State newState, Node.State prevState) {
@@ -398,21 +383,20 @@ public class StatisticsActivity extends AppCompatActivity {
         }
     };
 
-    // jeśli węzeł jest połączony -> aktywacja notyfikacji
-    // jeśli nie -> ustawienie listenera
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("Client", "Resume...");
+        // jesli wezel jest polaczony -> aktywacja notyfikacji
         if (mNode.isConnected()) {
             enableGyroscopeNotification();
             enableAccelerometerNotification();
-        } else {
+        }
+        // jesli wezel nie jest polaczony -> ustawienie listenera
+        else {
             mNode.addNodeStateListener(mNodeStatusListener);
         }
 
-        // połączenie z serwerem
-
+        // polaczenie z serwerem
         connectingTask = new ConnectingTask();
         connectingTask.execute("");
 
@@ -420,62 +404,61 @@ public class StatisticsActivity extends AppCompatActivity {
 
     protected void  onDestroy() {
         super.onDestroy();
-//       pw1.close();
-//       pw2.close();
     }
+
 
     @Override
     protected void onPause() {
         super.onPause();
-
+        // rozlaczenie sie z serwerem podczas przejscia do innej aktywnosci
         closeConnection ();
         connectingTask.cancel(true);
     }
 
+    // funkcja zamykajaca polaczenie z serwerem
     private void closeConnection () {
+        // ramka wysylana w celu zakonczenia polaczenia
         String message = "END $";
-        // wysłanie danych do serwera
 
-        Log.e("Client", "Close connection...");
+        Log.e("Client", "Closing connection...");
         if (tcpClient != null) {
+            // wyslanie ramki
             tcpClient.sendMessage(message);
         }
 
         if (tcpClient != null) {
-            // disconnect
+            // rozlaczenie
             new DisconnectTask().execute();
         }
 
-
+        // wyswietlenie komunikatu o rozlaczeniu w aplikacji
         TextView textview = findViewById(R.id.server_response);
-        textview.setText("Brak połączenia z serwerem!");
+        textview.setText(R.string.disconnect);
     }
 
 
+    // funkcja formujaca pakiet danych i wysylajaca go do serwera
     private void sendToServer(){
 
         Log.e("Client", timestampArray.size() + " " + accDataPacket.size() + " " + gyroDataPacket.size());
 
+        // naglowek pakietu
         String message = "Klasyfikacja 1 ";
 
+        // dodanie kolejnych probek danych z czujnikow
         for(int i = 0; i < 100; i++) {
-            message = message + timestampArray.get(0) + accDataPacket.get(0) + gyroDataPacket.get(0);
+            message += timestampArray.get(0) + accDataPacket.get(0) + gyroDataPacket.get(0);
             timestampArray.remove(0);
             accDataPacket.remove(0);
             gyroDataPacket.remove(0);
         }
+        // dodanie znaku konca ramki
         message = message + "$";
+
         // wysłanie danych do serwera
         if (tcpClient != null) {
             tcpClient.sendMessage(message);
         }
-//        else {
-//            new ConnectingTask().execute("");
-//        }
-
-//        timestampArray.clear();
-//        accDataPacket.clear();
-//        gyroDataPacket.clear();
 
     }
 }

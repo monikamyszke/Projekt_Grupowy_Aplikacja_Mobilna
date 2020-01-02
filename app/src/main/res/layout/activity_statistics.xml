@@ -40,7 +40,6 @@
 
             <TextView
                 android:layout_margin="4dp"
-
                 android:background="@drawable/rounded_button"
                 android:padding="8dp"
                 android:text="@string/tcp_counter"
@@ -63,7 +62,6 @@
 
             <TextView
                 android:layout_margin="4dp"
-
                 android:background="@drawable/rounded_button"
                 android:padding="8dp"
                 android:text="@string/player_number"
@@ -91,7 +89,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/skakanie"
+                android:id="@+id/hop_number"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -112,7 +110,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/stanie"
+                android:id="@+id/staying_time"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -133,7 +131,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/bieg"
+                android:id="@+id/running_time"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -154,7 +152,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/trucht"
+                android:id="@+id/jogging_time"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -177,7 +175,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/marsz"
+                android:id="@+id/march_time"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -190,7 +188,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/disconnect_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

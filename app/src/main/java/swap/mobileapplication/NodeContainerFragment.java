@@ -10,38 +10,39 @@ import android.widget.Toast;
 import com.st.BlueSTSDK.Manager;
 import com.st.BlueSTSDK.Node;
 
-// klasa do przechowywania połączonych węzłów
+// klasa wykorzystywana do przechowywania polaczonych wezlow
 public class NodeContainerFragment extends Fragment {
 
     final static String NODE_TAG = NodeContainerFragment.class.getCanonicalName()+".NODE_TAG";
 
     private boolean userAskToKeepConnection = false;
 
-    // okienko (dialog) wyświetlane podczas czekania na połączenie z węzłem
+    // okienko (dialog) wyswietlane podczas czekania na polaczenie z wezlem
     private ProgressDialog mConnectionWait;
+
     private Node mNode = null;
 
-    // listener związany z dialogiem
+    // listener zwiazany z dialogiem
     private Node.NodeStateListener mNodeStateListener = new Node.NodeStateListener() {
         @Override
         public void onStateChange(@NonNull final Node node, @NonNull Node.State newState, @NonNull Node.State prevState) {
             final Activity activity = NodeContainerFragment.this.getActivity();
-            // ukrycie dialogu po połączeniu
+            // ukrycie dialogu po polaczeniu
             if ((newState == Node.State.Connected) && activity != null) {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // zamknięcie dialogu
+                        // zamkniecie dialogu
                         mConnectionWait.dismiss();
                         mConnectionWait  = null;
                     }
                 });
-                // error -> toast message + rozpoczęcie nowego połączenia
+                // blad
             } else if ((newState == Node.State.Unreachable ||
                     newState == Node.State.Dead ||
                     newState == Node.State.Lost) && activity != null) {
                 final String msg = null;
-                // można zaimplementować obsługę tych błędów
+                // obsluga bledow nie jest implementowana
                 switch (newState) {
                     case Dead:
                         break;
@@ -70,7 +71,7 @@ public class NodeContainerFragment extends Fragment {
         }
     };
 
-    // przygotowanie argumentów które podaje się do fragmentu
+    // przygotowanie argumentow, ktore podaje sie do fragmentu
     public static Bundle prepareArguments(Node n) {
         Bundle args = new Bundle();
         args.putString(NODE_TAG, n.getTag());
@@ -80,7 +81,7 @@ public class NodeContainerFragment extends Fragment {
     // przygotowanie dialogu
     private void setUpProgressDialog(){
         mConnectionWait = new ProgressDialog(getActivity(),ProgressDialog.STYLE_SPINNER);
-        mConnectionWait.setTitle("Connecting...");
+        mConnectionWait.setTitle("Trwa łączenie...");
     }
 
     @Override
@@ -112,6 +113,7 @@ public class NodeContainerFragment extends Fragment {
         super.onPause();
     }
 
+    // metoda niewykorzystywana
     public void keepConnectionOpen(boolean doIt){
         userAskToKeepConnection = doIt;
     }

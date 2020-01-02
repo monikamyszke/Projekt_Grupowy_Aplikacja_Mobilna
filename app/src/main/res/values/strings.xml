@@ -14,8 +14,8 @@
     <string name="march_time">CZAS MARSZU [S]</string>
     <string name="hop_number">LICZBA SKOKÓW</string>
 
-
     <string name="zero">0</string>
+    <string name="disconnect">Brak połączenia z serwerem!"</string>
 
     <string name="help_text"><b>SWAP - System Wykrywania Aktywności Piłkarza</b> umożliwia zbieranie danych pochodzących z czujników inercyjnych
         i ich klasyfikację za pomocą sztucznej sieci neuronowej. Dane z czujników umieszczonych w opasce zamocowanej na nodze piłkarza są
