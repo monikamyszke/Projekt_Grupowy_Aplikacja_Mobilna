@@ -121,7 +121,7 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
             return;
 
         // przejście do aktywności wyświetlającej dane z czujników
-        Intent i = SensorDataActivity.getStartIntent(this, n);
+        Intent i = StatisticsActivity.getStartIntent(this, n);
         startActivity(i);
     }
 

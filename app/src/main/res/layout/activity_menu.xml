@@ -8,12 +8,12 @@
 
     <Button
         android:id="@+id/connect_button"
-        android:background="@drawable/rounded_button"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/menu_connect"
         android:textColor="@color/white_color"
         android:textSize="20sp"
@@ -24,64 +24,64 @@
         app:layout_constraintTop_toBottomOf="@+id/logo_image"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/statistics_button"
-        android:background="@drawable/rounded_button"
-        android:textColor="@color/white_color"
-        android:textSize="20sp"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/menu_statistics"
-        app:layout_constraintBottom_toBottomOf="@id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1"
-        app:layout_constraintVertical_bias="1.0" />
+    <!--<Button-->
+        <!--android:id="@+id/statistics_button"-->
+        <!--android:background="@drawable/rounded_button"-->
+        <!--android:textColor="@color/white_color"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_width="240dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:text="@string/menu_statistics"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/guideline2"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.496"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/guideline1"-->
+        <!--app:layout_constraintVertical_bias="1.0" />-->
 
     <Button
         android:id="@+id/help_button"
-        android:background="@drawable/rounded_button"
-        android:textColor="@color/white_color"
-        android:textSize="20sp"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/menu_help"
+        android:textColor="@color/white_color"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statistics_button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"
+        app:layout_constraintVertical_bias="0.495" />
 
     <Button
         android:id="@+id/exit_button"
-        android:background="@drawable/rounded_button"
-        android:textColor="@color/white_color"
-        android:textSize="20sp"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/menu_exit"
+        android:textColor="@color/white_color"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/help_button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.612" />
 
     <ImageView
         android:id="@+id/logo_image"
-        android:layout_width="120dp"
-        android:layout_height="119dp"
+        android:layout_width="154dp"
+        android:layout_height="146dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -99,14 +99,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="290dp" />
+        app:layout_constraintGuide_begin="311dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="380dp" />
+        app:layout_constraintGuide_begin="365dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -120,5 +120,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="560dp" />
+        app:layout_constraintGuide_begin="557dp" />
 </android.support.constraint.ConstraintLayout>

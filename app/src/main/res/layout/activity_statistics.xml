@@ -23,7 +23,7 @@
     <TableLayout
         android:id="@+id/tableLayout2"
         android:layout_width="310dp"
-        android:layout_height="350dp"
+        android:layout_height="390dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -31,8 +31,33 @@
         android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2">
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.598">
+
+        <TableRow android:background="@color/white_color">
+
+            <TextView
+                android:layout_margin="4dp"
+
+                android:background="@drawable/rounded_button"
+                android:padding="8dp"
+                android:text="@string/tcp_counter"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tcp_counter"
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_textview"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/zero"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+        </TableRow>
+
 
         <TableRow android:background="@color/white_color">
 
@@ -50,7 +75,7 @@
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
                 android:padding="8dp"
-                android:text="@string/zero"
+                android:text="9"
                 android:textColor="@color/white_color"
                 android:textSize="18sp" />
         </TableRow>
@@ -61,11 +86,12 @@
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_button"
                 android:padding="8dp"
-                android:text="@string/pass_number"
+                android:text="@string/hop_number"
                 android:textColor="@color/white_color"
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/skakanie"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -81,31 +107,12 @@
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_button"
                 android:padding="8dp"
-                android:text="@string/shot_number"
+                android:text="@string/staying_number"
                 android:textColor="@color/white_color"
                 android:textSize="18sp" />
 
             <TextView
-                android:layout_margin="4dp"
-                android:background="@drawable/rounded_textview"
-                android:gravity="end"
-                android:padding="8dp"
-                android:text="@string/zero"
-                android:textColor="@color/white_color"
-                android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow android:background="@color/white_color">
-
-            <TextView
-                android:layout_margin="4dp"
-                android:background="@drawable/rounded_button"
-                android:padding="8dp"
-                android:text="@string/slide_number"
-                android:textColor="@color/white_color"
-                android:textSize="18sp" />
-
-            <TextView
+                android:id="@+id/stanie"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -126,6 +133,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/bieg"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -146,6 +154,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/trucht"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -155,7 +164,9 @@
                 android:textSize="18sp" />
         </TableRow>
 
-        <TableRow android:background="@color/white_color">
+        <TableRow
+            android:layout_height="wrap_content"
+            android:background="@color/white_color">
 
             <TextView
                 android:layout_margin="4dp"
@@ -166,6 +177,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/marsz"
                 android:layout_margin="4dp"
                 android:background="@drawable/rounded_textview"
                 android:gravity="end"
@@ -176,5 +188,60 @@
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="sans-serif"
+        android:text="Rozłącz"
+        android:textColor="@color/white_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reset_button"
+        app:layout_constraintHorizontal_bias="0.699"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.886" />
+
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="sans-serif"
+        android:text="RESETUJ"
+        android:textColor="@color/white_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.886" />
+
+    <TextView
+        android:id="@+id/server_response"
+        android:layout_width="337dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/swap_color_6"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.059" />
 
 </android.support.constraint.ConstraintLayout>

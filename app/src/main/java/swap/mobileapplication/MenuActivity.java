@@ -9,7 +9,7 @@ import android.widget.Button;
 public class MenuActivity extends AppCompatActivity {
 
     Button connectButton;
-    Button statButton;
+//    Button statButton;
     Button helpButton;
     Button exitButton;
 
@@ -19,9 +19,9 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         connectButton = findViewById(R.id.connect_button);
-        statButton = findViewById(R.id.statistics_button);
+    //    statButton = findViewById(R.id.statistics_button);
         helpButton = findViewById(R.id.help_button);
-        exitButton = findViewById(R.id.exit_button);
+        exitButton = findViewById( R.id.exit_button);
 
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,12 +30,12 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        statButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startStatisticsActivity();
-            }
-        });
+//        statButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startStatisticsActivity();
+//            }
+//        });
 
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +59,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     // funkcja przechodząca do statystyk
-    public void startStatisticsActivity() {
-        startActivity(new Intent(this, StatisticsActivity.class));
-    }
+//    public void startStatisticsActivity() {
+//        startActivity(new Intent(this, StatisticsActivity.class));
+//    }
 
     // funkcja przechodząca do pomocy dla użytkownika
     public void startHelpActivity() {
